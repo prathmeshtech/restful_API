@@ -41,10 +41,22 @@ app.post("/restregisters", async(req, res) => {
 //READing the data using Our OWN RESTful API
 app.get("/restregisters", async(req,res) => {
     try {
-        const studentsData = await RestRegister.find();   // 
+        const studentsData = await RestRegister.find();   // we,ll till it finds all students data
         res.send(studentsData);
     } catch (e){
         res.send(e); 
+    }
+})
+
+
+//Updating  the Data using PATCH method
+app.patch("/restregisters/:id", async(req, res) => {
+    try {
+        const _id= req.params.id;
+        const stuData = await RestRegister.findByIdAndUpdate(_id, req.body, {new:true});
+        res.send(stuData);
+    } catch (e) {
+        res.status(400).send(e);
     }
 })
 
